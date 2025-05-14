@@ -3,7 +3,6 @@
   ansible.builtin.user:
     name: "{{ item.name }}"
     comment: "{{ item.comment }}"
-    groups: "{{ item.groups }}"
     append: true
     state: present
   loop: "{{ users_list }}"

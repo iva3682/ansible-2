@@ -1,4 +1,4 @@
 ---
 users_list:
-  - {name: 'alice', comment: 'User Alice', groups: []}
-  - {name: 'bob', comment: 'User Bob', groups: ['sudo']}
+  - {name: 'alice', comment: 'User Alice'}
+  - {name: 'bob', comment: 'User Bob'}
