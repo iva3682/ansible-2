@@ -1,0 +1,22 @@
+---
+- name: Установить пакеты PHP-FPM и зависимые модули
+  ansible.builtin.package:
+    name: ["php-fpm", "php8.2"]
+    state: present
+
+- name: Удаление стандартных пулов обработки (default pool)
+  ansible.builtin.file:
+    path: /etc/php/8.2/fpm/php-fpm.conf
+    state: absent
+
+- name: Развернуть новый конфиг пула PHP-FPM
+  ansible.builtin.template:
+    src: php-fpm-pool.conf.j2
+    dest: /etc/php/8.2/fpm/php-fpm.conf
+    mode: '0644'
+
+- name: Перезапустить сервис PHP-FPM
+  ansible.builtin.service:
+    name: php8.2-fpm
+    state: restarted
+    enabled: true

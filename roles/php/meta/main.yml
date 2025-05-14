@@ -1,6 +1,6 @@
 galaxy_info:
   author: iva3682
-  description: Create http
+  description: Create php
   license: Apache
   min_ansible_version: "2.1"
   galaxy_tags: []
