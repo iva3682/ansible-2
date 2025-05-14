@@ -1,2 +1,32 @@
 ---
-# tasks file for roles/http
+- name: Update dnf cache
+  ansible.builtin.dnf:
+    update_cache: true
+
+- name: Install Nginx
+  ansible.builtin.package:
+    name: nginx
+    state: present
+
+- name: Stopping and disabling default site configuration
+  ansible.builtin.file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+
+- name: Template Nginx config
+  ansible.builtin.template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/sites-available/myapp.conf
+    mode: '0644'
+
+- name: Enable custom Nginx config
+  ansible.builtin.file:
+    src: /etc/nginx/sites-available/myapp.conf
+    dest: /etc/nginx/sites-enabled/myapp.conf
+    state: link
+
+- name: Restart Nginx service
+  ansible.builtin.service:
+    name: nginx
+    state: restarted
+    enabled: true

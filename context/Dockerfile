@@ -20,7 +20,7 @@ ARG PKGMGR
 
 COPY _build/scripts/ /output/scripts/
 COPY _build/scripts/entrypoint /opt/builder/bin/entrypoint
-RUN $PKGMGR -y -q install python3-devel
+RUN $PKGMGR -y -q install python3-devel python3-libdnf5
 RUN /output/scripts/pip_install $PYCMD
 RUN $PYCMD -m pip install --no-cache-dir $ANSIBLE_INSTALL_REFS
 

@@ -1,0 +1,27 @@
+server {
+    listen       80;
+    server_name  localhost;
+
+    root   /var/www/html;
+    index  index.php index.html index.htm;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/run/php/php-fpm.sock;
+        # Используем порт 9000 для передачи запросов на PHP-FPM
+        fastcgi_pass 127.0.0.1:9000;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+}
