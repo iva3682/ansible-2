@@ -1,0 +1,6 @@
+---
+- name: Create Users
+  hosts: localhost
+  become: true
+  roles:
+    - users

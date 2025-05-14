@@ -1,0 +1,27 @@
+---
+- name: Проверяем существование пользователей
+  ansible.builtin.user:
+    name: "{{ item.name }}"
+    comment: "{{ item.comment }}"
+    groups: "{{ item.groups }}"
+    append: true
+    state: present
+  loop: "{{ users_list }}"
+
+- name: Создаем директорию ~/.ssh
+  ansible.builtin.file:
+    path: "/home/{{ item.name }}/.ssh"
+    state: directory
+    mode: '0700'
+    owner: "{{ item.name }}"
+    group: "{{ item.name }}"
+  loop: "{{ users_list }}"
+
+- name: Копируем открытый ключ в authorized_keys
+  ansible.builtin.copy:
+    content: "{{ lookup('file', 'files/id_rsa.pub') }}"
+    dest: "/home/{{ item.name }}/.ssh/authorized_keys"
+    mode: '0600'
+    owner: "{{ item.name }}"
+    group: "{{ item.name }}"
+  loop: "{{ users_list }}"
