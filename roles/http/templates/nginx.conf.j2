@@ -16,8 +16,7 @@ server {
 
     location ~ \.php$ {
         include snippets/fastcgi-php.conf;
-        # Используем порт 9000 для передачи запросов на PHP-FPM
-        fastcgi_pass 127.0.0.1:9000;
+        fastcgi_pass php-fpm.server.com:9000;
     }
 
     location ~ /\.ht {

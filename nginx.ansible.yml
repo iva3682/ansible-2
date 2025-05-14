@@ -1,6 +1,7 @@
 ---
 - name: Create Nginx
-  hosts: localhost
+  hosts: nginx
   become: true
   roles:
+    - users
     - http

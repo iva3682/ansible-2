@@ -1,6 +1,7 @@
 ---
 - name: Create PHP-FPM
-  hosts: localhost
+  hosts: php-fpm
   become: true
   roles:
+    - users
     - php
